@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.andview.refreshview.XRefreshView;
@@ -31,10 +32,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRrefresh(ArrayList list) {
         adapter = new RecyclerAdapter(list, this);
-        GridLayoutManager manager = new GridLayoutManager(this, 1);
-        manager.setOrientation(GridLayoutManager.VERTICAL);
+//       final LinearLayoutManager manager= new LinearLayoutManager(this);
+
+        final GridLayoutManager manager = new GridLayoutManager(this, 1);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRlvContent.setLayoutManager(manager);
         mRlvContent.setAdapter(adapter);
+        adapter.setOnClickItemListener(new RecyclerAdapter.onClickItemListener() {
+            @Override
+            public void onClickItem(Object obj, int position) {
+              manager.scrollToPositionWithOffset(position,0);
+
+//              manager.setStackFromEnd(true);
+
+            }
+        });
 
     }
 
